@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+
+    <script src="Todo.js"></script>
+    <style>
+        body
+        {
+            font-family:sans-serif;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <h1 style="color:red;"><u>My To Do App</u></h1>
+    
+
+    <div ng-app="todoApp" style="background-color:wheat;">
+
+        <div ng-controller="todoController">
+
+            <!-- <audio src="sound1.mp3" controls  ></audio>
+            <audio src="sound2.wav" controls ></audio>
+            <audio src="sound3.mp3" controls ></audio>
+            <audio src="sound4.wav" controls ></audio> -->
+           <b> Enter Your Task</b>
+            <input type="text"  ng-model="text" placeholder="Type your text" />
+        <b> Want it to Remind?</b>
+            <input type="checkbox" ng-model="remind" />
+
+            <span ng-show="remind" >
+                <input type="date" ng-model="date" />
+                <input type="time" ng-model="time" />
+            </span>
+
+            <button ng-click="saveTask()" class="btn btn-block;" style="color:white; background-color:green">Add</button>
+
+            <hr/>
+            <h3><b>InCompleted Task</b></h3>
+            <table width="400px;" height="20px;" border="1" cellpadding="5" cellspacing="6" style="color:red;" >
+                <tr>
+                    <th>#</th>
+                    <th>Task</th>
+                    <th>DateTime</th>
+                    <th>Delete</th>
+                </tr>
+                <tr ng-repeat="task in alltask | filter: {status:false}" >
+                    <td> <input type="checkbox" ng-click="task.status=true; statusChanged()" /> </td>
+                    <td> {{task.text}} </td>
+                    <td> {{task.date}} {{task.time}} </td>
+                    <td> <a ng-click="deleteTask(task)">&#9746;</a> </td>
+                </tr>
+            </table>
+
+            <h3>Completed Task</h3>
+            <table width="400px" border="1" cellpadding="5" style="color:green">
+                <tr>
+                    <th>#</th>
+                    <th>Task</th>
+                    <th>DateTime</th>
+                    <th>Delete</th>
+                </tr>
+                <tr ng-repeat="task in alltask | filter: {status:true}">
+                    <td> <input type="checkbox" checked ng-click="task.status=false; statusChanged()" /> </td>
+                    <td> {{task.text}} </td>
+                    <td> {{task.date}} {{task.time}} </td>
+                    <td> <a ng-click="deleteTask(task)" >&#9746;</a> </td>
+                </tr>
+            </table>
+
+
+        </div>
+
+    </div>
+
+</center>
+</body>
+</html>
